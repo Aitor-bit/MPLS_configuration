@@ -2,29 +2,29 @@ version: '3'
 
 services:
   router1:
-    container_name: router1                     # Nombre de contenedor
+    container_name: router1                     # Container's name
     build:
-      context: .                                # Dónde está el archivo del que depende
-      dockerfile: DockerfileA                   # Especificar archivo Dockerfile
-    image: my_image_router:latest               # Nombre de la imagen
+      context: .                                # Where is the dependant file
+      dockerfile: DockerfileA                   # Specify Dockerfile
+    image: my_image_router:latest               # Image name
     tty: true                                   # docker run -t
     stdin_open: true                            # docker run -i
     networks:
-      my-network20:                              # Definir las redes e IPs del contenedor
+      my-network20:                             # Define networks and IPs for the container
         ipv4_address: 172.20.0.3
       my-network30:
         ipv4_address: 172.30.0.2
       my-network40:
         ipv4_address: 172.40.0.2
     sysctls:
-      - net.mpls.conf.eth0.input=1              # Habilita MPLS en eth0
-      - net.mpls.platform_labels=1000000        # Define el máximo de etiquetas
+      - net.mpls.conf.eth0.input=1              # Enables MPLS for eth0
+      - net.mpls.platform_labels=1000000        # Defines max label number
     cap_add:
-      - NET_ADMIN                               # Privilegios de red
+      - NET_ADMIN                               # Network privileges
     volumes:
-      - ./router1.sh:/router1.sh                # Introducir el script en el contenedor
+      - ./router1.sh:/router1.sh                # introduce the script inside the container
     command:
-      - ./router1.sh                            # Ejecutar el script
+      - ./router1.sh                            # Execute the script
 
   router2:
     container_name: router2
