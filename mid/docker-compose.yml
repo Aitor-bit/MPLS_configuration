@@ -1,0 +1,350 @@
+version: '3'
+
+services:
+  router1:
+    container_name: router1                     # Nombre de contenedor
+    build:
+      context: .                                # Dónde está el archivo del que depende
+      dockerfile: DockerfileA                   # Especificar archivo Dockerfile
+    image: my_image_router:latest               # Nombre de la imagen
+    tty: true                                   # docker run -t
+    stdin_open: true                            # docker run -i
+    networks:
+      my-network20:                              # Definir las redes e IPs del contenedor
+        ipv4_address: 172.20.0.3
+      my-network30:
+        ipv4_address: 172.30.0.2
+      my-network40:
+        ipv4_address: 172.40.0.2
+    sysctls:
+      - net.mpls.conf.eth0.input=1              # Habilita MPLS en eth0
+      - net.mpls.platform_labels=1000000        # Define el máximo de etiquetas
+    cap_add:
+      - NET_ADMIN                               # Privilegios de red
+    volumes:
+      - ./router1.sh:/router1.sh                # Introducir el script en el contenedor
+    command:
+      - ./router1.sh                            # Ejecutar el script
+
+  router2:
+    container_name: router2
+    build:
+      context: .
+      dockerfile: DockerfileA
+    image: my_image_router:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network20:
+        ipv4_address: 172.20.0.2
+      my-network21:
+        ipv4_address: 172.21.0.2
+      my-network22:
+        ipv4_address: 172.22.0.2
+      my-network23:
+        ipv4_address: 172.23.0.2
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.conf.eth1.input=1
+      - net.mpls.conf.eth2.input=1
+      - net.mpls.conf.eth3.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./router2.sh:/router2.sh
+    command:
+      - ./router2.sh
+
+  router3:
+    container_name: router3
+    build:
+      context: .
+      dockerfile: DockerfileA
+    image: my_image_router:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network21:
+        ipv4_address: 172.21.0.3
+      my-network31:
+        ipv4_address: 172.31.0.2
+      my-network41:
+        ipv4_address: 172.41.0.2
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./router3.sh:/router3.sh
+    command:
+      - ./router3.sh
+
+  router4:
+    container_name: router4
+    build:
+      context: .
+      dockerfile: DockerfileA
+    image: my_image_router:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network22:
+        ipv4_address: 172.22.0.3
+      my-network32:
+        ipv4_address: 172.32.0.2
+      my-network42:
+        ipv4_address: 172.42.0.2
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./router4.sh:/router4.sh
+    command:
+      - ./router4.sh
+
+  router5:
+    container_name: router5
+    build:
+      context: .
+      dockerfile: DockerfileA
+    image: my_image_router:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network23:
+        ipv4_address: 172.23.0.3
+      my-network33:
+        ipv4_address: 172.33.0.2
+      my-network43:
+        ipv4_address: 172.43.0.2
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./router5.sh:/router5.sh
+    command:
+      - ./router5.sh
+
+  client1:
+    container_name: client1
+    build:
+      context: .
+      dockerfile: DockerfileB
+    image: my_image_host:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network30:
+        ipv4_address: 172.30.0.3
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./client1.sh:/client1.sh
+    command:
+      - ./client1.sh
+
+  client2:
+    container_name: client2
+    build:
+      context: .
+      dockerfile: DockerfileB
+    image: my_image_host:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network40:
+        ipv4_address: 172.40.0.3
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./client2.sh:/client2.sh
+    command:
+      - ./client2.sh
+
+  client3:
+    container_name: client3
+    build:
+      context: .
+      dockerfile: DockerfileB
+    image: my_image_host:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network32:
+        ipv4_address: 172.32.0.3
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./client3.sh:/client3.sh
+    command:
+      - ./client3.sh
+
+  client4:
+    container_name: client4
+    build:
+      context: .
+      dockerfile: DockerfileB
+    image: my_image_host:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network42:
+        ipv4_address: 172.42.0.3
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./client4.sh:/client4.sh
+    command:
+      - ./client4.sh
+
+  server1:
+    container_name: server1
+    build:
+      context: .
+      dockerfile: DockerfileB
+    image: my_image_host:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network31:
+        ipv4_address: 172.31.0.3
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./server1.sh:/server1.sh
+    command:
+      - ./server1.sh
+
+  server2:
+    container_name: server2
+    build:
+      context: .
+      dockerfile: DockerfileB
+    image: my_image_host:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network41:
+        ipv4_address: 172.41.0.3
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./server2.sh:/server2.sh
+    command:
+      - ./server2.sh
+
+  server3:
+    container_name: server3
+    build:
+      context: .
+      dockerfile: DockerfileB
+    image: my_image_host:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network33:
+        ipv4_address: 172.33.0.3
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./server3.sh:/server3.sh
+    command:
+      - ./server3.sh
+
+  server4:
+    container_name: server4
+    build:
+      context: .
+      dockerfile: DockerfileB
+    image: my_image_host:latest
+    tty: true
+    stdin_open: true
+    networks:
+      my-network43:
+        ipv4_address: 172.43.0.3
+    sysctls:
+      - net.mpls.conf.eth0.input=1
+      - net.mpls.platform_labels=1000000
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./server4.sh:/server4.sh
+    command:
+      - ./server4.sh
+
+networks:
+  my-network20:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+  my-network21:
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
+  my-network22:
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16
+  my-network23:
+    ipam:
+      config:
+        - subnet: 172.23.0.0/16
+  my-network30:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+  my-network31:
+    ipam:
+      config:
+        - subnet: 172.31.0.0/16
+  my-network32:
+    ipam:
+      config:
+        - subnet: 172.32.0.0/16
+  my-network33:
+    ipam:
+      config:
+        - subnet: 172.33.0.0/16
+  my-network40:
+    ipam:
+      config:
+        - subnet: 172.40.0.0/16
+  my-network41:
+    ipam:
+      config:
+        - subnet: 172.41.0.0/16
+  my-network42:
+    ipam:
+      config:
+        - subnet: 172.42.0.0/16
+  my-network43:
+    ipam:
+      config:
+        - subnet: 172.43.0.0/16
