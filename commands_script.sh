@@ -1,6 +1,3 @@
-# Use this to get the IP addresses of the Docker containers
-docker inspect [CONTAINER ID] | grep "IPAddress"
-
 # Install kmod
 apt install kmod
 
