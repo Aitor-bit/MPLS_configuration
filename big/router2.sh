@@ -1,5 +1,5 @@
 #!/bin/bash
-ip -f mpls route add 102 as 201 via inet 172.20.0.3	# Cambio de etiqueta
+ip -f mpls route add 102 as 201 via inet 172.20.0.3	# Label switch
 ip -f mpls route add 302 as 203 via inet 172.21.0.3
 ip -f mpls route add 402 as 204 via inet 172.22.0.3
 ip -f mpls route add 502 as 205 via inet 172.23.0.3
