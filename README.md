@@ -1,6 +1,7 @@
 # MPLS_configuration
 
 This is a repo for showing some useful commands for MPLS configuration using the Linux kernel modules.
+Also there are three environments ready to use.
 
 To run the environments, here are some steps to follow:
 
@@ -9,3 +10,5 @@ To run the environments, here are some steps to follow:
 - After completing all the commands, you should navigate to one of the environment's folder: small, mid or big.
 
 - Last step is to execute the ```docker-compose up``` command and your environment should be ready!
+
+Remember to ```docker-compose down``` after you finish, so you don't have network incompatibilities.
