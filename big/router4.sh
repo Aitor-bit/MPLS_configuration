@@ -1,4 +1,4 @@
-w#!/bin/bash
+#!/bin/bash
 ip l add blue type vrf table 2					# Create blue VRF
 ip l set dev blue up						# Activate VRF
 ip l set dev eth1 master blue					# Associate eth1 to blue
