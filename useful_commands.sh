@@ -5,7 +5,10 @@ docker network create [NETWORK]
 # Raise the containers following the docker-compose.yml configuration
 docker-compose up
 
-# execute a command in a container knowing its ID or name
+# Remove the containers. It's a good practice to execute everytime the execution is finished
+docker-compose down
+
+# Execute a command in a container knowing its ID or name
 docker exec [CONTAINER NAME OR ID] [COMMAND]
 
 # Connect to a container knowing its ID or name
